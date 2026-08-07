@@ -1,0 +1,6 @@
+{
+  "name": "TELC.B2 Exam Prep",
+  "description": "Authentic TELC Deutsch B2 exam simulator with practice modules, auto-scoring, and performance tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
