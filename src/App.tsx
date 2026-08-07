@@ -68,42 +68,42 @@ export default function App() {
       />
 
       {/* Overview Stats Bar */}
-      <section id="roster" className="py-20 px-6 md:px-12 bg-[#0A0C0E]">
-        <div className="max-w-7xl mx-auto space-y-0">
-          <div className="border-t border-[rgba(237,231,220,0.13)] flex flex-col sm:flex-row justify-between items-start sm:items-center py-8 hover:bg-[#101317]/50 transition-colors px-4 rounded-xl">
-            <span className="text-xs uppercase tracking-widest font-semibold text-[#E8913C]">
-              Items in Exam Blueprint
-            </span>
-            <span className="text-4xl md:text-6xl font-display font-extrabold">
-              50 Questions
-            </span>
-            <span className="text-xs uppercase tracking-widest text-[#6C7378] font-mono">
-              Auto-Scored against Lösungsschlüssel
-            </span>
+      <section id="roster" className="py-16 px-6 md:px-12 bg-[#0A0C0E] border-t border-[rgba(237,231,220,0.13)]">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-2xl bg-[#101317] border border-[rgba(237,231,220,0.13)] space-y-2">
+            <div className="text-xs uppercase tracking-widest font-semibold text-[#E8913C]">
+              Exam Blueprint Items
+            </div>
+            <div className="text-3xl md:text-4xl font-display font-extrabold text-[#EDE7DC]">
+              60 Questions
+            </div>
+            <div className="text-xs text-[#9EA5A8]">
+              Auto-Scored against Official Lösungsschlüssel
+            </div>
           </div>
 
-          <div className="border-t border-[rgba(237,231,220,0.13)] flex flex-col sm:flex-row justify-between items-start sm:items-center py-8 hover:bg-[#101317]/50 transition-colors px-4 rounded-xl">
-            <span className="text-xs uppercase tracking-widest font-semibold text-[#2E6B72]">
+          <div className="p-6 rounded-2xl bg-[#101317] border border-[rgba(237,231,220,0.13)] space-y-2">
+            <div className="text-xs uppercase tracking-widest font-semibold text-[#2E6B72]">
               Maximum Points
-            </span>
-            <span className="text-4xl md:text-6xl font-display font-extrabold">
+            </div>
+            <div className="text-3xl md:text-4xl font-display font-extrabold text-[#EDE7DC]">
               300 Points
-            </span>
-            <span className="text-xs uppercase tracking-widest text-[#6C7378] font-mono">
-              Schriftlich (225) + Mündlich (75)
-            </span>
+            </div>
+            <div className="text-xs text-[#9EA5A8]">
+              Schriftliche (225) + Mündliche Prüfung (75)
+            </div>
           </div>
 
-          <div className="border-t border-b border-[rgba(237,231,220,0.13)] flex flex-col sm:flex-row justify-between items-start sm:items-center py-8 hover:bg-[#101317]/50 transition-colors px-4 rounded-xl">
-            <span className="text-xs uppercase tracking-widest font-semibold text-[#E8913C]">
-              Passing Standard
-            </span>
-            <span className="text-4xl md:text-6xl font-display font-extrabold">
-              60% Pass Rate
-            </span>
-            <span className="text-xs uppercase tracking-widest text-[#6C7378] font-mono">
-              Certificate B2 Recognized Worldwide
-            </span>
+          <div className="p-6 rounded-2xl bg-[#101317] border border-[rgba(237,231,220,0.13)] space-y-2">
+            <div className="text-xs uppercase tracking-widest font-semibold text-[#E8913C]">
+              Official Pass Standard
+            </div>
+            <div className="text-3xl md:text-4xl font-display font-extrabold text-[#EDE7DC]">
+              60% Minimum
+            </div>
+            <div className="text-xs text-[#9EA5A8]">
+              TELC Certificate B2 Recognized Worldwide
+            </div>
           </div>
         </div>
       </section>

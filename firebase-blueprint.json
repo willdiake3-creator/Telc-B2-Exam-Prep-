@@ -1,0 +1,26 @@
+{
+  "entities": {
+    "User": {
+      "path": "users/{userId}",
+      "schema": {
+        "email": "string",
+        "createdAt": "timestamp"
+      }
+    },
+    "Attempt": {
+      "path": "users/{userId}/attempts/{attemptId}",
+      "schema": {
+        "userId": "string",
+        "email": "string",
+        "sectionId": "string",
+        "sectionTitle": "string",
+        "score": "number",
+        "total": "number",
+        "percentage": "number",
+        "passed": "boolean",
+        "durationSeconds": "number",
+        "timestamp": "timestamp"
+      }
+    }
+  }
+}

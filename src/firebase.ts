@@ -10,44 +10,59 @@ import {
   User
 } from "firebase/auth";
 import { 
+  getFirestore,
   initializeFirestore, 
   collection, 
   addDoc, 
   getDocs, 
   serverTimestamp,
   doc,
-  getDocFromServer
+  getDoc,
+  Firestore
 } from "firebase/firestore";
+import firebaseAppletConfig from "../firebase-applet-config.json";
 import { ExamAttempt } from "./types";
 
 export const ADMIN_EMAIL = "diakeyves3@gmail.com";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCbzEClpy0NscsJ4ifihfqHjTpEi3cY1R0",
-  authDomain: "willdiake3-creator.firebaseapp.com",
-  projectId: "willdiake3-creator",
-  storageBucket: "willdiake3-creator.firebasestorage.app",
-  messagingSenderId: "105332451611",
-  appId: "1:105332451611:web:021a4ff692bd49c3d8cbbe"
+  apiKey: firebaseAppletConfig.apiKey,
+  authDomain: firebaseAppletConfig.authDomain,
+  projectId: firebaseAppletConfig.projectId,
+  storageBucket: firebaseAppletConfig.storageBucket,
+  messagingSenderId: firebaseAppletConfig.messagingSenderId,
+  appId: firebaseAppletConfig.appId,
 };
 
-const FIRESTORE_DB_ID = "ai-studio-zertifikatb1neum-8e808cf3-be5d-40f0-bbc0-06e12bef8f49";
+const FIRESTORE_DB_ID = firebaseAppletConfig.firestoreDatabaseId || "ai-studio-zertifikatb1neum-8e808cf3-be5d-40f0-bbc0-06e12bef8f49";
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = initializeFirestore(app, {}, FIRESTORE_DB_ID);
+
+// Initialize Firestore safely with fallback for database ID
+const customDbId = firebaseAppletConfig.firestoreDatabaseId;
+let firestoreDb: Firestore;
+
+try {
+  if (customDbId && customDbId !== '(default)') {
+    firestoreDb = getFirestore(app, customDbId);
+  } else {
+    firestoreDb = getFirestore(app);
+  }
+} catch {
+  firestoreDb = getFirestore(app);
+}
+
+export const db = firestoreDb;
 export const googleProvider = new GoogleAuthProvider();
 
 export async function testConnection() {
   try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
+    await getDoc(doc(db, 'test', 'connection'));
   } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn("Firestore client is offline or configuration requires network access.");
-    }
+    console.warn("Firestore connection notice:", error);
   }
 }
-testConnection();
 
 export async function loginWithGoogle() {
   return await signInWithPopup(auth, googleProvider);

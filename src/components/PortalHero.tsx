@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowRight, Sparkles, BookOpen } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Sparkles, BookOpen, CheckCircle, ShieldCheck, Clock, Award } from 'lucide-react';
 
 interface PortalHeroProps {
   onStartExam: () => void;
@@ -7,129 +7,133 @@ interface PortalHeroProps {
 }
 
 export const PortalHero: React.FC<PortalHeroProps> = ({ onStartExam, onBrowseModules }) => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scroll = window.scrollY;
-      const vh = window.innerHeight;
-      const progress = Math.min(scroll / (vh * 1.2), 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const leftTranslate = scrollProgress * 100;
-  const rightTranslate = scrollProgress * 100;
-  const scale = 1.05 - scrollProgress * 0.05;
-  const overlayOpacity = scrollProgress * 0.35;
-  const dotOffset = scrollProgress * 35;
-  const wordmarkSplit = scrollProgress * 18;
-
   return (
-    <section className="relative h-[200vh]">
-      <div className="sticky top-0 h-screen overflow-hidden isolation-auto flex items-center justify-center">
-        {/* Top & Bottom Subtitles */}
-        <div className="absolute top-20 left-6 md:left-12 text-[10.5px] uppercase tracking-[0.2em] font-semibold text-[#6C7378] z-40">
-          Certification // <span className="text-[#E8913C]">TELC Deutsch B2</span>
-        </div>
-        <div className="absolute bottom-8 right-6 md:right-12 text-[10.5px] uppercase tracking-[0.2em] font-semibold text-[#6C7378] z-40 text-right opacity-70">
-          Past Papers // Übungstest 1 // Official Solution Key
-        </div>
+    <section className="relative pt-32 pb-20 px-6 md:px-12 bg-[#0A0C0E] border-b border-[rgba(237,231,220,0.13)] overflow-hidden">
+      {/* Subtle Background Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E8913C]/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 right-10 w-[400px] h-[250px] bg-[#2E6B72]/15 blur-[100px] rounded-full pointer-events-none" />
 
-        {/* Splitting Portal Panels */}
-        <div
-          className="absolute top-0 left-0 w-[50.5%] h-full bg-[#0A0C0E] border-r border-[rgba(237,231,220,0.13)] z-20 pointer-events-none transition-transform duration-75 ease-out"
-          style={{ transform: `translateX(-${leftTranslate}%)` }}
-        />
-        <div
-          className="absolute top-0 right-0 w-[50.5%] h-full bg-[#0A0C0E] border-l border-[rgba(237,231,220,0.13)] z-20 pointer-events-none transition-transform duration-75 ease-out"
-          style={{ transform: `translateX(${rightTranslate}%)` }}
-        />
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Hero Headline & Actions */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            
+            {/* Tagline Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#101317] border border-[#E8913C]/40 text-xs font-mono text-[#E8913C]">
+              <Sparkles className="w-3.5 h-3.5 text-[#E8913C]" />
+              <span className="uppercase tracking-wider font-semibold">TELC DEUTSCH B2 // MODELLTEST 1</span>
+            </div>
 
-        {/* Animated Accent Dots */}
-        <div
-          className="w-2 h-2 rounded-full bg-[#E8913C] shadow-[0_0_12px_#E8913C] absolute z-25 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-75 ease-out"
-          style={{
-            transform: `translate(calc(-50% - ${dotOffset}vw), calc(-50% - ${dotOffset}vh))`
-          }}
-        />
-        <div
-          className="w-2 h-2 rounded-full bg-[#2E6B72] shadow-[0_0_12px_#2E6B72] absolute z-25 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-75 ease-out"
-          style={{
-            transform: `translate(calc(-50% + ${dotOffset}vw), calc(-50% + ${dotOffset}vh))`
-          }}
-        />
+            {/* Display Headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold uppercase tracking-tight text-[#EDE7DC] leading-[1.08]">
+              Master TELC B2 <br />
+              <span className="text-[#E8913C]">With Authentic Practice</span>
+            </h1>
 
-        {/* Portal Wordmark */}
-        <div className="absolute z-30 pointer-events-none flex items-center font-display uppercase tracking-tighter text-[clamp(4rem,15vw,16rem)] leading-none select-none">
-          <span
-            className="font-extrabold text-[#EDE7DC] transition-transform duration-75 ease-out inline-block"
-            style={{ transform: `translateX(-${wordmarkSplit}vw)` }}
-          >
-            TELC
-          </span>
-          <span
-            className="font-light text-[#E8913C] transition-transform duration-75 ease-out inline-block ml-4"
-            style={{ transform: `translateX(${wordmarkSplit}vw)` }}
-          >
-            B2
-          </span>
-        </div>
+            {/* Subtitle */}
+            <p className="text-sm md:text-base font-sans text-[#9EA5A8] max-w-xl leading-relaxed">
+              Complete practice simulator based on the official telc GmbH B2 examination blueprint. Test Leseverstehen, Sprachbausteine, Hörverstehen, Schriftlicher and Mündlicher Ausdruck with full solution keys.
+            </p>
 
-        {/* Hero Background Image */}
-        <div
-          className="absolute inset-0 z-10 transition-transform duration-75 ease-out"
-          style={{ transform: `scale(${scale})` }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"
-            alt="TELC Examination Preparation"
-            className="w-full h-full object-cover brightness-[0.35]"
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-tr from-[#2E6B72] to-[#E8913C] mix-blend-overlay pointer-events-none"
-            style={{ opacity: overlayOpacity }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0C0E]/40 to-[#0A0C0E]" />
-        </div>
+            {/* Call To Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <button
+                onClick={onStartExam}
+                className="px-8 py-4 bg-[#E8913C] text-[#0A0C0E] text-xs font-bold font-display uppercase tracking-widest rounded-xl hover:bg-[#E8913C]/90 transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-[#E8913C]/20 cursor-pointer"
+              >
+                <BookOpen className="w-4 h-4" />
+                Launch 60-Task Exam Simulator
+              </button>
 
-        {/* Center Content CTA Overlay */}
-        <div className="relative z-40 max-w-3xl mx-auto px-6 text-center mt-32">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#101317]/90 border border-[#E8913C]/40 mb-6 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#E8913C]" />
-            <span className="text-[10px] uppercase tracking-widest text-[#EDE7DC] font-semibold">
-              Official 2011 telc GmbH Exam Cycle
-            </span>
+              <button
+                onClick={onBrowseModules}
+                className="px-8 py-4 bg-[#101317] border border-[rgba(237,231,220,0.18)] text-[#EDE7DC] text-xs font-bold font-display uppercase tracking-widest rounded-xl hover:border-[#2E6B72] hover:text-[#2E6B72] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                Browse Practice Modules
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Features Checklist Pills */}
+            <div className="pt-4 flex flex-wrap gap-4 text-xs font-mono text-[#9EA5A8]">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-[#2E6B72]" />
+                <span>60 Official Test Tasks</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-[#2E6B72]" />
+                <span>Automated Scoring</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-[#2E6B72]" />
+                <span>Complete Solution Keys</span>
+              </div>
+            </div>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-bold uppercase tracking-tight text-[#EDE7DC] leading-none mb-6">
-            Master TELC Deutsch B2 <br className="hidden sm:inline" />
-            <span className="text-[#E8913C]">Authentic Exam Prep</span>
-          </h1>
+          {/* Right Column: Clean Interactive Preview Box */}
+          <div className="lg:col-span-5">
+            <div className="p-6 md:p-8 rounded-2xl bg-[#101317] border border-[rgba(237,231,220,0.13)] shadow-2xl space-y-6 relative">
+              <div className="flex items-center justify-between pb-4 border-b border-[rgba(237,231,220,0.1)]">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-[#2E6B72]" />
+                  <span className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Exam Overview</span>
+                </div>
+                <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#E8913C]/10 text-[#E8913C] border border-[#E8913C]/30">
+                  telc B2 Standard
+                </span>
+              </div>
 
-          <p className="text-sm md:text-base font-sans text-[#9EA5A8] max-w-xl mx-auto mb-8 leading-relaxed">
-            Practice Leseverstehen, Sprachbausteine, and Hörverstehen with authentic past questions, automated grading, and complete rationale keys.
-          </p>
+              {/* Module List Overview */}
+              <div className="space-y-3">
+                <div className="p-3.5 rounded-xl bg-[#0A0C0E] border border-[rgba(237,231,220,0.08)] flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Leseverstehen (LV 1–3)</div>
+                    <div className="text-[11px] text-[#9EA5A8]">Überschriften, Artikel, Info-Anzeigen</div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-[#E8913C]">20 Items</span>
+                </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onStartExam}
-              className="w-full sm:w-auto px-8 py-4 bg-[#E8913C] text-[#0A0C0E] text-xs uppercase tracking-widest font-bold font-display rounded-lg hover:bg-[#E8913C]/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#E8913C]/10"
-            >
-              <BookOpen className="w-4 h-4" />
-              Launch Exam Simulator
-            </button>
-            <button
-              onClick={onBrowseModules}
-              className="w-full sm:w-auto px-8 py-4 border border-[rgba(237,231,220,0.2)] text-[#EDE7DC] text-xs uppercase tracking-widest font-semibold font-display rounded-lg hover:border-[#2E6B72] hover:text-[#2E6B72] transition-all flex items-center justify-center gap-2"
-            >
-              Browse Practice Modules
-              <ArrowRight className="w-4 h-4" />
-            </button>
+                <div className="p-3.5 rounded-xl bg-[#0A0C0E] border border-[rgba(237,231,220,0.08)] flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Sprachbausteine (SB 1–2)</div>
+                    <div className="text-[11px] text-[#9EA5A8]">Brief-Lückentext & Wortkasten</div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-[#2E6B72]">20 Items</span>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-[#0A0C0E] border border-[rgba(237,231,220,0.08)] flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Hörverstehen (HV 1–3)</div>
+                    <div className="text-[11px] text-[#9EA5A8]">Nachrichten, Interview, Durchsagen</div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-[#E8913C]">20 Items</span>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-[#0A0C0E] border border-[rgba(237,231,220,0.08)] flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Schriftlich & Mündlich</div>
+                    <div className="text-[11px] text-[#9EA5A8]">B2 Brief & 3-Teilige Sprachtests</div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-[#2E6B72]">SA + MA</span>
+                </div>
+              </div>
+
+              {/* Pass Threshold Badge */}
+              <div className="p-4 rounded-xl bg-[#2E6B72]/10 border border-[#2E6B72]/30 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <Award className="w-5 h-5 text-[#2E6B72]" />
+                  <div>
+                    <div className="text-xs font-display font-bold uppercase text-[#EDE7DC]">Passing Threshold</div>
+                    <div className="text-[10px] text-[#9EA5A8]">Min. 180 / 300 Points</div>
+                  </div>
+                </div>
+                <span className="text-lg font-display font-extrabold text-[#E8913C]">60%</span>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>

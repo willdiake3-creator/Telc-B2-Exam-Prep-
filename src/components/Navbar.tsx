@@ -36,8 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <a href="#" className="font-display font-extrabold text-base tracking-tight text-[#EDE7DC]">
           TELC<span className="text-[#E8913C]">.</span>B2
         </a>
-        <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-[#101317] border border-[rgba(237,231,220,0.13)] text-[9.5px] uppercase tracking-widest text-[#2E6B72] font-semibold">
-          Übungstest 1
+        <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-[#101317] border border-[rgba(237,231,220,0.13)] text-[9.5px] uppercase tracking-widest text-[#E8913C] font-semibold">
+          Modelltest 1
         </span>
       </div>
 

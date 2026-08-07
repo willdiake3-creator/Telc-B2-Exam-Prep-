@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronRight, RotateCcw, Play, CheckCircle } from 'lucide-react';
-import { EXAM_SECTIONS } from '../data/examData';
+import React from 'react';
+import { ChevronRight, Play, BookOpen, Headphones, Edit3, MessageSquare, Clock, CheckCircle2 } from 'lucide-react';
 
 interface CardDeckProps {
   onStartSpecificModule: (sectionId: string) => void;
@@ -9,174 +8,208 @@ interface CardDeckProps {
 
 const MODULE_CARDS = [
   {
-    id: 'lv1',
-    code: 'LV 1-3',
-    title: 'Leseverstehen',
-    time: '90 Min.',
-    itemsCount: 20,
-    desc: 'Teil 1 (Überschriften), Teil 2 (Mehrfachauswahl), Teil 3 (Anzeigenzuordnung)',
-    color: '#E8913C'
+    id: 'full',
+    code: 'FULL TEST',
+    title: 'Gesamter Test (1–60)',
+    time: '160 Min.',
+    itemsCount: 60,
+    desc: 'Alle 60 Aufgaben aus Leseverstehen, Sprachbausteine und Hörverstehen am Stück absolvieren.',
+    color: '#E8913C',
+    icon: BookOpen,
+    subParts: []
   },
   {
-    id: 'sb1',
-    title: 'Sprachbausteine',
-    code: 'SB 1-2',
-    time: 'Inkl. LV',
+    id: 'lv',
+    code: 'LV 1–3',
+    title: 'Leseverstehen',
+    time: '90 Min. (inkl. SB)',
     itemsCount: 20,
-    desc: 'Teil 1 (Brief Lückentext a/b/c), Teil 2 (Zeitungstext Wortkasten a–o)',
-    color: '#2E6B72'
+    desc: 'Teil 1 (Überschriften 1–5), Teil 2 (Zeitungsartikel 6–10), Teil 3 (Anzeigen 11–20)',
+    color: '#E8913C',
+    icon: BookOpen,
+    subParts: [
+      { id: 'lv1', label: 'Teil 1 (1–5)' },
+      { id: 'lv2', label: 'Teil 2 (6–10)' },
+      { id: 'lv3', label: 'Teil 3 (11–20)' },
+    ]
+  },
+  {
+    id: 'sb',
+    code: 'SB 1–2',
+    title: 'Sprachbausteine',
+    time: '90 Min. (inkl. LV)',
+    itemsCount: 20,
+    desc: 'Teil 1 (Brief Lückentext 21–30), Teil 2 (Wortkasten 31–40)',
+    color: '#2E6B72',
+    icon: CheckCircle2,
+    subParts: [
+      { id: 'sb1', label: 'Teil 1 (21–30)' },
+      { id: 'sb2', label: 'Teil 2 (31–40)' },
+    ]
   },
   {
     id: 'hv',
+    code: 'HV 1–3',
     title: 'Hörverstehen',
-    code: 'HV 1-2',
     time: 'ca. 20 Min.',
-    itemsCount: 10,
-    desc: 'Teil 1 & 2 (Globalverstehen & Detailverstehen mit Richtig/Falsch)',
-    color: '#E8913C'
+    itemsCount: 20,
+    desc: 'Teil 1 (Nachrichten 41–45), Teil 2 (Zugspitze Interview 46–55), Teil 3 (Durchsagen 56–60)',
+    color: '#E8913C',
+    icon: Headphones,
+    subParts: [
+      { id: 'hv1', label: 'Teil 1 (41–45)' },
+      { id: 'hv2', label: 'Teil 2 (46–55)' },
+      { id: 'hv3', label: 'Teil 3 (56–60)' },
+    ]
   },
   {
     id: 'sa',
-    title: 'Schriftl. Ausdruck',
     code: 'SA',
+    title: 'Schriftlicher Ausdruck',
     time: '30 Min.',
-    itemsCount: 1,
-    desc: 'B2 Brief/E-Mail verfassen (Beschwerde oder Bewerbung mit Leitpunkten)',
-    color: '#2E6B72'
+    itemsCount: 2,
+    desc: 'Thema 1 (Unfallversicherung) oder Thema 2 (Jugendcamp Beschwerdebrief) mit interaktiver Vorschau',
+    color: '#2E6B72',
+    icon: Edit3,
+    subParts: []
   },
   {
     id: 'ma',
-    title: 'Mündl. Ausdruck',
     code: 'MA',
+    title: 'Mündlicher Ausdruck',
     time: '15–25 Min.',
     itemsCount: 3,
-    desc: 'Teil 1 (Kontaktaufnahme), Teil 2 (Gespräch über ein Thema), Teil 3 (Problemlösung)',
-    color: '#E8913C'
+    desc: 'Teil 1 (Präsentation), Teil 2 (Diskussion Getrennte Schulen), Teil 3 (Seniorenreise-Problemlösung)',
+    color: '#E8913C',
+    icon: MessageSquare,
+    subParts: []
   }
 ];
 
 export const CardDeck: React.FC<CardDeckProps> = ({ onStartSpecificModule, onStartFullExam }) => {
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-
-  const activeModule = MODULE_CARDS[activeCardIndex];
-
   return (
-    <section id="exams-section" className="py-24 px-6 md:px-12 bg-[#101317] border-y border-[rgba(237,231,220,0.13)]">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="text-xs uppercase tracking-[0.2em] font-semibold text-[#E8913C] mb-3">
-              Practice Modules // Übungstest 1
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-display font-bold uppercase tracking-tight text-[#EDE7DC] leading-none mb-6">
-              Available Test <br />
-              <span className="text-[#E8913C]">Sections</span>
-            </h2>
-            <p className="text-sm font-sans text-[#9EA5A8] max-w-md leading-relaxed mb-8">
-              Full-length TELC Deutsch B2 simulation split into interactive modules. Practice individual sections or simulate the complete 50-item exam.
-            </p>
+    <section id="exams-section" className="py-20 px-6 md:px-12 bg-[#0A0C0E]">
+      <div className="max-w-7xl mx-auto space-y-12">
+        {/* Header with Modelltest Selector */}
+        <div className="space-y-6 border-b border-[rgba(237,231,220,0.13)] pb-8">
+          {/* Modelltest Selector Switcher */}
+          <div className="flex items-center gap-3 overflow-x-auto pb-2">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#9EA5A8] whitespace-nowrap font-semibold">
+              Select Exam Set:
+            </span>
+            <button className="px-4 py-1.5 rounded-full bg-[#E8913C] text-[#0A0C0E] text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-md shadow-[#E8913C]/20">
+              <span>Modelltest 1</span>
+              <span className="text-[9px] bg-[#0A0C0E]/20 px-1.5 py-0.5 rounded uppercase font-extrabold">Aktiv</span>
+            </button>
+            <button disabled className="px-4 py-1.5 rounded-full bg-[#101317] border border-[rgba(237,231,220,0.13)] text-[#6C7378] text-xs font-mono font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-60 cursor-not-allowed">
+              <span>Modelltest 2</span>
+              <span className="text-[9px] bg-[#1A1D20] text-[#9EA5A8] px-1.5 py-0.5 rounded">In Kürze</span>
+            </button>
+            <button disabled className="px-4 py-1.5 rounded-full bg-[#101317] border border-[rgba(237,231,220,0.13)] text-[#6C7378] text-xs font-mono font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-60 cursor-not-allowed">
+              <span>Modelltest 3</span>
+              <span className="text-[9px] bg-[#1A1D20] text-[#9EA5A8] px-1.5 py-0.5 rounded">In Kürze</span>
+            </button>
+          </div>
 
-            <div className="flex flex-wrap gap-4 mb-8">
-              <button
-                onClick={onStartFullExam}
-                className="px-8 py-4 bg-[#EDE7DC] text-[#0A0C0E] text-xs uppercase tracking-widest font-bold font-display rounded-lg hover:bg-[#E8913C] transition-colors flex items-center gap-2"
-              >
-                <Play className="w-4 h-4" />
-                Start Full 50-Item Test
-              </button>
-              <button
-                onClick={() => onStartSpecificModule(activeModule.id)}
-                className="px-8 py-4 border border-[rgba(237,231,220,0.2)] text-[#EDE7DC] text-xs uppercase tracking-widest font-semibold font-display rounded-lg hover:border-[#2E6B72] hover:text-[#2E6B72] transition-colors"
-              >
-                Practice Selected: {activeModule.code}
-              </button>
-            </div>
-
-            {/* Pagination Controls */}
-            <div className="flex items-center gap-4">
-              <div className="flex gap-1.5">
-                {MODULE_CARDS.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveCardIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      idx === activeCardIndex ? 'w-8 bg-[#E8913C]' : 'w-2 bg-[#6C7378]'
-                    }`}
-                  />
-                ))}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] font-semibold text-[#E8913C] mb-2">
+                Practice Modules // Modelltest 1
               </div>
-              <span className="text-xs font-mono text-[#6C7378]">
-                Module {activeCardIndex + 1} / {MODULE_CARDS.length}
-              </span>
+              <h2 className="text-3xl sm:text-4xl font-display font-bold uppercase tracking-tight text-[#EDE7DC]">
+                Available Test <span className="text-[#E8913C]">Sections</span>
+              </h2>
+              <p className="text-sm text-[#9EA5A8] font-sans mt-2 max-w-xl">
+                Choose a specific module (Teil 1, 2 or 3) to target your weaknesses or practice the entire 60-item test in real time.
+              </p>
             </div>
-          </div>
 
-          {/* Card Stack Display */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-sm h-[380px] perspective-1000">
-              {MODULE_CARDS.map((card, idx) => {
-                const offset = idx - activeCardIndex;
-                const isVisible = Math.abs(offset) <= 2;
-                if (!isVisible) return null;
+          <button
+            onClick={onStartFullExam}
+            className="px-6 py-3.5 bg-[#E8913C] text-[#0A0C0E] text-xs font-bold font-display uppercase tracking-wider rounded-xl hover:bg-[#E8913C]/90 transition-all flex items-center gap-2 self-start md:self-auto cursor-pointer shadow-lg shadow-[#E8913C]/10"
+          >
+            <Play className="w-4 h-4 fill-current" />
+            Start Full 60-Item Test
+          </button>
+        </div>
+      </div>
 
-                const zIndex = 30 - Math.abs(offset) * 5;
-                const translateY = offset * 12;
-                const scale = 1 - Math.abs(offset) * 0.05;
-                const opacity = 1 - Math.abs(offset) * 0.3;
-
-                return (
-                  <div
-                    key={card.id}
-                    onClick={() => setActiveCardIndex(idx)}
-                    className="absolute inset-0 bg-[#0A0C0E] border border-[rgba(237,231,220,0.13)] p-8 rounded-2xl shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between select-none"
-                    style={{
-                      zIndex,
-                      transform: `translateY(${translateY}px) scale(${scale})`,
-                      opacity
-                    }}
-                  >
-                    <div>
-                      <div className="flex justify-between items-start mb-6">
-                        <span className="text-xs font-mono font-bold uppercase text-[#E8913C]">
-                          {card.code}
-                        </span>
-                        <span className="text-[10px] uppercase tracking-widest text-[#6C7378] font-semibold">
-                          {card.time}
-                        </span>
-                      </div>
-
-                      <h3 className="text-2xl font-display font-bold uppercase text-[#EDE7DC] mb-3">
-                        {card.title}
-                      </h3>
-
-                      <p className="text-xs font-sans text-[#9EA5A8] leading-relaxed mb-6">
-                        {card.desc}
-                      </p>
-                    </div>
-
-                    <div className="pt-6 border-t border-[rgba(237,231,220,0.1)] flex items-center justify-between">
-                      <span className="text-xs font-mono text-[#2E6B72]">
-                        {card.itemsCount} {card.itemsCount === 1 ? 'Task' : 'Questions'}
-                      </span>
-
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onStartSpecificModule(card.id);
-                        }}
-                        className="flex items-center gap-1.5 text-xs uppercase tracking-widest font-semibold text-[#EDE7DC] hover:text-[#E8913C] transition-colors"
-                      >
-                        Start Section
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
+        {/* Responsive Grid of Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {MODULE_CARDS.map((card) => {
+            const IconComponent = card.icon;
+            return (
+              <div
+                key={card.id}
+                className="p-6 rounded-2xl bg-[#101317] border border-[rgba(237,231,220,0.13)] hover:border-[#E8913C] transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  {/* Card Top Pill & Time */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-3 py-1 rounded-full bg-[#0A0C0E] border border-[rgba(237,231,220,0.13)] text-xs font-mono font-bold text-[#E8913C]">
+                      {card.code}
+                    </span>
+                    <span className="text-xs font-mono text-[#9EA5A8] flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-[#2E6B72]" />
+                      {card.time}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+
+                  {/* Title & Icon */}
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="p-2.5 rounded-xl bg-[#0A0C0E] border border-[rgba(237,231,220,0.08)] text-[#E8913C] group-hover:border-[#E8913C]/40 transition-colors">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-lg font-display font-bold uppercase text-[#EDE7DC] pt-1 leading-snug">
+                      {card.title}
+                    </h3>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-xs text-[#9EA5A8] leading-relaxed mb-4 font-sans">
+                    {card.desc}
+                  </p>
+
+                  {/* Sub-Part Quick Launch Pills */}
+                  {card.subParts && card.subParts.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      <span className="text-[10px] uppercase font-mono text-[#6C7378] w-full mb-0.5">Quick Jump to Teil:</span>
+                      {card.subParts.map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onStartSpecificModule(sub.id);
+                          }}
+                          className="px-2.5 py-1 rounded-md bg-[#0A0C0E] border border-[rgba(237,231,220,0.13)] text-[11px] font-mono font-semibold text-[#E8913C] hover:border-[#E8913C] hover:bg-[#E8913C]/10 transition-colors cursor-pointer"
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="pt-4 border-t border-[rgba(237,231,220,0.08)] flex items-center justify-between">
+                  <span className="text-xs font-mono text-[#2E6B72]">
+                    {card.itemsCount} {card.itemsCount === 1 ? 'Task' : 'Items'}
+                  </span>
+
+                  <button
+                    onClick={() => onStartSpecificModule(card.id)}
+                    className="px-4 py-2 bg-[#0A0C0E] border border-[rgba(237,231,220,0.13)] rounded-lg text-xs font-display font-bold uppercase tracking-wider text-[#EDE7DC] group-hover:border-[#E8913C] group-hover:text-[#E8913C] transition-all flex items-center gap-1.5 cursor-pointer"
+                  >
+                    Start All
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 };
+

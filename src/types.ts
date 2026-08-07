@@ -12,18 +12,38 @@ export interface QuestionItem {
   options: string[];
   correct: string;
   explanation?: string;
+  audioScript?: string;
 }
 
 export interface ExamSection {
   id: string;
   title: string;
-  shortCode: 'LV1' | 'LV2' | 'LV3' | 'SB1' | 'SB2' | 'HV';
+  shortCode: 'LV1' | 'LV2' | 'LV3' | 'SB1' | 'SB2' | 'HV1' | 'HV2' | 'HV3';
   module: 'Leseverstehen' | 'Sprachbausteine' | 'Hörverstehen';
   timeLimitMinutes: number;
   description: string;
   contextType?: 'texts' | 'wordbank';
   contextData?: ContextItem[] | string[];
   items: QuestionItem[];
+}
+
+export interface WritingTopic {
+  id: number;
+  title: string;
+  subtitle: string;
+  adContent: string;
+  adTitle: string;
+  adAddress?: string;
+  promptRequirements: string[];
+}
+
+export interface SpeakingPart {
+  part: number;
+  title: string;
+  duration: string;
+  description: string;
+  prompts: string[];
+  readingText?: string;
 }
 
 export interface ExamAttempt {
@@ -47,3 +67,4 @@ export interface UserProfile {
   photoURL: string | null;
   isAdmin?: boolean;
 }
+
